@@ -10,14 +10,22 @@ function detectMalware() {
         return;
     }
 
-    query({ "inputs": urlInput }).then((response) => {
-        const resultElement = document.getElementById('result');
-        resultElement.textContent = JSON.stringify(response, null, 2);
-    }).catch((error) => {
-        console.error('Error:', error);
-        alert('An error occurred while detecting malware. Please try again.');
-    });
+    // Show a loading message or spinner to indicate the process is ongoing
+    const resultElement = document.getElementById('result');
+    resultElement.textContent = 'Detecting malware...';
+
+    // Simulate a delay of 20 seconds using setTimeout
+    setTimeout(() => {
+        query({ "inputs": urlInput }).then((response) => {
+            // Update the content with the JSON response after the delay
+            resultElement.textContent = JSON.stringify(response, null, 2);
+        }).catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred while detecting malware. Please try again.');
+        });
+    }, 11000); // 20 seconds in milliseconds
 }
+
 
 async function query(data) {
     const response = await fetch(
